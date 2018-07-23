@@ -10,8 +10,8 @@ class app(tk.Tk):
         tk.Tk.__init__(self)
 
         tk.Tk.wm_title(self, "Avengers Stonehunt")
-        tk.Tk.wm_resizable(self, 0, 0)
-        tk.Tk.wm_geometry(self, "500x500")
+        tk.Tk.wm_resizable(self, 1, 1)
+        #tk.Tk.wm_geometry(self, "500x500")
         #self.width = 500
         #self.height = 500
         BUTTON_FONT = ttk.Style()
@@ -59,54 +59,50 @@ class NewGamePage(tk.Frame):
         newgamelabel.grid(
                         row = 0,
                         column = 2,
-                        columnspan = 5,
                         pady = 30)
         iplabel = tk.Label(self, text = "Enter your IP address:", font = LABEL_FONT)
         iplabel.grid(
                     row = 1,
-                    columnspan = 2,
-                    padx = (5, 0),
-                    pady = (0, 5),
+                    column = 0,
+                    padx = (0, 5),
                     sticky = "e")
-        ipentry = ttk.Entry(self, width = 25, font = ENTRY_FONT)
+        ipentry = ttk.Entry(self, font = ENTRY_FONT)
         ipentry.grid(
                     row = 1,
                     column = 2,
-                    columnspan = 6)
+                    columnspan = 2)
         portlabel = tk.Label(self, text = "Enter your port number:", font = LABEL_FONT)
         portlabel.grid(
                         row = 2,
-                        columnspan = 2,
-                        padx = (5, 0),
-                        pady = (0, 5),
+                        column = 0,
+                        padx = (0, 5),
                         sticky = "e")
-        portentry = ttk.Entry(self, width = 25, font = ENTRY_FONT)
+        portentry = ttk.Entry(self, font = ENTRY_FONT)
         portentry.grid(
                         row = 2,
                         column = 2,
-                        columnspan = 6)
+                        columnspan = 2)
         numplayerslabel = tk.Label(self, text = "Enter the number of players:", font = LABEL_FONT)
         numplayerslabel.grid(
                         row = 3,
-                        columnspan = 2,
-                        padx = (5, 0),
-                        pady = (0, 5),
+                        column = 0,
+                        padx = (0, 5),
                         sticky = "e")
-        numplayersentry = ttk.Entry(self, width = 25, font = ENTRY_FONT)
-        numplayersentry.grid(row = 3,
-                        column = 2,
-                        columnspan = 6)
+        numplayersentry = ttk.Entry(self, font = ENTRY_FONT)
+        numplayersentry.grid(
+                            row = 3,
+                            column = 2,
+                            columnspan = 2)
         backbutton = ttk.Button(self, text = "Back", command = lambda: controller.back({ipentry, portentry, numplayersentry}))
         backbutton.grid(
-                        row = 5,
+                        row = 4,
                         column = 0,
-                        pady = 30)
+                        sticky = "e")
         startbutton = ttk.Button(self, text = "Start")
         startbutton.grid(
-                        row = 5,
-                        column = 7,
-                        padx = (20, 0),
-                        pady = 30)
+                        row = 4,
+                        column = 2,
+                        sticky = "e")
 
 class JoinGamePage(tk.Frame):
     def __init__(self, parent, controller):
@@ -116,43 +112,39 @@ class JoinGamePage(tk.Frame):
         joingamelabel.grid(
                         row = 0,
                         column = 2,
-                        columnspan = 5,
                         pady = 30)
         iplabel = tk.Label(self, text = "Enter your IP address:", font = LABEL_FONT)
         iplabel.grid(
                     row = 1,
-                    columnspan = 2,
-                    padx = (5, 0),
-                    pady = (0, 5),
+                    column = 0,
+                    padx = (0, 5),
                     sticky = "e")
-        ipentry = ttk.Entry(self, width = 25, font = ENTRY_FONT)
+        ipentry = ttk.Entry(self, font = ENTRY_FONT)
         ipentry.grid(
                     row = 1,
                     column = 2,
-                    columnspan = 6)
+                    columnspan = 2)
         portlabel = tk.Label(self, text = "Enter your port number:", font = LABEL_FONT)
         portlabel.grid(
                         row = 2,
-                        columnspan = 2,
-                        padx = (5, 0),
-                        pady = (0, 5),
+                        column = 0,
+                        padx = (0, 5),
                         sticky = "e")
-        portentry = ttk.Entry(self, width = 25, font = ENTRY_FONT)
+        portentry = ttk.Entry(self, font = ENTRY_FONT)
         portentry.grid(
                         row = 2,
                         column = 2,
-                        columnspan = 6)
+                        columnspan = 2)
         backbutton = ttk.Button(self, text = "Back", command = lambda: controller.back({ipentry, portentry}))
         backbutton.grid(
-                        row = 5,
+                        row = 4,
                         column = 0,
-                        pady = 30)
+                        sticky = "e")
         startbutton = ttk.Button(self, text = "Start")
         startbutton.grid(
-                        row = 5,
-                        column = 7,
-                        padx = (20, 0),
-                        pady = 30)
+                        row = 4,
+                        column = 2,
+                        sticky = "e")
 
 class HelpPage(tk.Frame):
     def __init__(self, parent, controller):
