@@ -24,7 +24,7 @@ class app(tk.Tk):
 
         self.frames = {}
 
-        for page in (MainPage, NewGamePage, JoinGamePage, HelpPage, AboutPage):
+        for page in (MainPage, NewGamePage, JoinGamePage, HelpPage, AboutPage, ServerGamePage):
             frame = page(mainframe, self)
             self.frames[page] = frame
             frame.grid(row = 0, column = 0, sticky = "nsew")
@@ -58,7 +58,7 @@ class NewGamePage(tk.Frame):
         newgamelabel = tk.Label(self, text = "New Game", font = TITLE_FONT)
         newgamelabel.grid(
                         row = 0,
-                        column = 2,
+                        column = 1,
                         pady = 30)
         iplabel = tk.Label(self, text = "Enter your IP address:", font = LABEL_FONT)
         iplabel.grid(
@@ -69,8 +69,9 @@ class NewGamePage(tk.Frame):
         ipentry = ttk.Entry(self, font = ENTRY_FONT)
         ipentry.grid(
                     row = 1,
-                    column = 2,
-                    columnspan = 2)
+                    column = 1,
+                    columnspan = 2,
+                    sticky = "w")
         portlabel = tk.Label(self, text = "Enter your port number:", font = LABEL_FONT)
         portlabel.grid(
                         row = 2,
@@ -80,8 +81,9 @@ class NewGamePage(tk.Frame):
         portentry = ttk.Entry(self, font = ENTRY_FONT)
         portentry.grid(
                         row = 2,
-                        column = 2,
-                        columnspan = 2)
+                        column = 1,
+                        columnspan = 2,
+                        sticky = "w")
         numplayerslabel = tk.Label(self, text = "Enter the number of players:", font = LABEL_FONT)
         numplayerslabel.grid(
                         row = 3,
@@ -91,14 +93,15 @@ class NewGamePage(tk.Frame):
         numplayersentry = ttk.Entry(self, font = ENTRY_FONT)
         numplayersentry.grid(
                             row = 3,
-                            column = 2,
-                            columnspan = 2)
+                            column = 1,
+                            columnspan = 2,
+                            sticky = "w")
         backbutton = ttk.Button(self, text = "Back", command = lambda: controller.back({ipentry, portentry, numplayersentry}))
         backbutton.grid(
                         row = 4,
                         column = 0,
                         sticky = "e")
-        startbutton = ttk.Button(self, text = "Start")
+        startbutton = ttk.Button(self, text = "Start", command = lambda: controller.show(ServerGamePage))
         startbutton.grid(
                         row = 4,
                         column = 2,
@@ -111,7 +114,7 @@ class JoinGamePage(tk.Frame):
         joingamelabel = tk.Label(self, text = "Join Game", font = TITLE_FONT)
         joingamelabel.grid(
                         row = 0,
-                        column = 2,
+                        column = 1,
                         pady = 30)
         iplabel = tk.Label(self, text = "Enter your IP address:", font = LABEL_FONT)
         iplabel.grid(
@@ -122,8 +125,9 @@ class JoinGamePage(tk.Frame):
         ipentry = ttk.Entry(self, font = ENTRY_FONT)
         ipentry.grid(
                     row = 1,
-                    column = 2,
-                    columnspan = 2)
+                    column = 1,
+                    columnspan = 2,
+                    sticky = "w")
         portlabel = tk.Label(self, text = "Enter your port number:", font = LABEL_FONT)
         portlabel.grid(
                         row = 2,
@@ -133,8 +137,9 @@ class JoinGamePage(tk.Frame):
         portentry = ttk.Entry(self, font = ENTRY_FONT)
         portentry.grid(
                         row = 2,
-                        column = 2,
-                        columnspan = 2)
+                        column = 1,
+                        columnspan = 2,
+                        sticky = "w")
         backbutton = ttk.Button(self, text = "Back", command = lambda: controller.back({ipentry, portentry}))
         backbutton.grid(
                         row = 4,
@@ -169,6 +174,45 @@ class AboutPage(tk.Frame):
 
         body = tk.Label(self, text = bodytext, wraplength = controller.winfo_reqwidth() + 100, justify = "center").pack(padx=20)
         backbutton = ttk.Button(self, text = "Back", command = lambda: controller.show(MainPage)).pack(pady = (30,0))
+
+class ServerGamePage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        servergamelabel = tk.Label(self, text = "Stonehunt Server", font = TITLE_FONT)
+        servergamelabel.grid(
+                            row = 0,
+                            column = 1,
+                            sticky = "w")
+        numplayerslabel = tk.Label(self, text = "Number of players connected: ")
+        numplayerslabel.grid(
+                            row = 1,
+                            column = 0,
+                            sticky = "e")
+        numplayersvallabel = tk.Label(self, text = "#")
+        numplayersvallabel.grid(
+                            row = 1,
+                            column = 1,
+                            sticky = "w")
+
+        textscrollbar = tk.Scrollbar(self)
+        textscrollbar.grid(
+                            row = 2,
+                            column = 2,
+                            sticky = "e")
+        servertext = tk.Text(self, bd = 10, yscrollcommand = textscrollbar.set)
+        servertext.grid(
+                        row = 2,
+                        column = 0,
+                        columnspan = 3,
+                        sticky = "we",
+                        padx = (20, 15),
+                        pady = 20)
+        textscrollbar.config(command=servertext.yview)
+        backbutton = ttk.Button(self, text = "Back", command = lambda: controller.show(MainPage))
+        backbutton.grid(
+                        row = 3,
+                        column = 0)
 
 gui = app()
 gui.mainloop()
